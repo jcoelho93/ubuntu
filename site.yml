@@ -1,0 +1,9 @@
+---
+- name: provision ubuntu development environment
+  hosts: all
+  become: true
+  roles:
+    - base
+    - cmprescott.chrome
+    - gantsign.visual-studio-code
+    - oefenweb.slack

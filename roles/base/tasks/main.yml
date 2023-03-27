@@ -1,0 +1,95 @@
+---
+- name: install spotify client
+  block:
+    - name: install gpg key
+      ansible.builtin.apt_key:
+        url: https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg
+    - name: install spotify apt repo
+      ansible.builtin.apt_repository:
+        repo: deb http://repository.spotify.com stable non-free
+    - name: install spotify
+      ansible.builtin.apt:
+        name: spotify-client
+
+- name: install keepassxc
+  block:
+    - name: add apt repository
+      ansible.builtin.apt_repository:
+        repo: ppa:phoerious/keepassxc
+    - name: install keepassxc
+      ansible.builtin.apt:
+        name: keepassxc
+
+- name: generate ssh key pair
+  community.crypto.openssh_keypair:
+    path: "/home/josecoelho/.ssh/id_rsa"
+    size: 4096
+    owner: josecoelho
+    group: josecoelho
+    mode: u=rw
+
+- name: install git
+  ansible.builtin.apt:
+    name: git
+
+- name: install zsh
+  ansible.builtin.apt:
+    name: zsh
+
+- name: install openconnect
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+    - openconnect
+    - network-manager-openconnect
+    - network-manager-openconnect-gnome
+
+- name: install misc packages
+  ansible.builtin.apt:
+    name: "{{ item }}"
+  with_items:
+    - curl
+    - gnupg
+    - build-essential
+    - ca-certificates
+    - apt-transport-https
+    - software-properties-common
+
+- name: install kubectl
+  block:
+    - name: install google cloud gpg key
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        keyring: /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+    - name: add apt repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    - name: install
+      ansible.builtin.apt:
+        name: kubectl
+
+- name: install gcloud
+  block:
+    - name: install apt key
+      ansible.builtin.apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        keyring: /usr/share/keyrings/cloud.google.gpg
+    - name: install apt repo
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main
+    - name: install
+      ansible.builtin.apt:
+        name: google-cloud-cli
+
+- name: install terraform
+  block:
+    - name: install apt key
+      ansible.builtin.apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    - name: add apt repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main
+    - name: install terraform
+      ansible.builtin.apt:
+        name: terraform
