@@ -93,3 +93,7 @@
     - name: install terraform
       ansible.builtin.apt:
         name: terraform
+
+- name: configure git
+  ansible.builtin.include_tasks:
+    file: git.yml

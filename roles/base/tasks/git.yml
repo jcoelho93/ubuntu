@@ -1,0 +1,12 @@
+---
+- name: install git config
+  ansible.builtin.template:
+    src: .gitconfig.j2
+    dest: ~/.gitconfig
+    mode: u=rw,g=rw,o=r
+
+- name: install personal git config
+  ansible.builtin.template:
+    src: .gitconfig-personal.j2
+    dest: ~/.gitconfig-personal
+    mode: u=rw,g=rw,o=r

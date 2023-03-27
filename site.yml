@@ -2,6 +2,23 @@
 - name: provision ubuntu development environment
   hosts: all
   become: true
+  vars_prompt:
+    - name: user_email
+      prompt: What is your work email?
+      private: false
+      default: jose.coelho@mindera.com
+    - name: user_name
+      prompt: What is your name?
+      private: false
+      default: José Coelho
+    - name: personal_email
+      prompt: What is your personal email?
+      private: false
+      default: 16445494+jcoelho93@users.noreply.github.com
+    - name: gpg_key_id
+      prompt: What is your personal GPG key id?
+      private: false
+      default: C9A6E7D3945B4DC7
   roles:
     - base
     - cmprescott.chrome

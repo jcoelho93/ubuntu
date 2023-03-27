@@ -1,0 +1,14 @@
+[alias]
+	co = checkout
+	st = status
+	com = "checkout main"
+
+[init]
+	defaultBranch = main
+
+[user]
+	email = {{ user_email }}
+	name = {{ user_name }}
+
+[includeIf "gitdir:~/workspace/personal/**"]
+	path = "~/.gitconfig-personal"
