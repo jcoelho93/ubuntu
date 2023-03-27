@@ -83,16 +83,15 @@
 
 - name: install terraform
   block:
-    - name: install apt key
-      ansible.builtin.apt_key:
-        url: https://apt.releases.hashicorp.com/gpg
-        keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
-    - name: add apt repository
-      ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main
-    - name: install terraform
-      ansible.builtin.apt:
-        name: terraform
+    - name: download install script
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/warrensbox/terraform-switcher/release/install.sh
+        dest: /tmp/tfswitch-install.sh
+        mode: u=rwx
+    - name: execute install script
+      ansible.builtin.shell:
+        cmd: /tmp/tfswitch-install.sh
+        creates: /usr/local/bin/tfswitch
 
 - name: configure git
   ansible.builtin.include_tasks:
