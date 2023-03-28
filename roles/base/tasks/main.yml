@@ -96,3 +96,7 @@
 - name: configure git
   ansible.builtin.include_tasks:
     file: git.yml
+
+- name: install minikube
+  ansible.builtin.include_tasks:
+    file: minikube.yml

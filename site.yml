@@ -19,6 +19,9 @@
       prompt: What is your personal GPG key id?
       private: false
       default: C9A6E7D3945B4DC7
+  vars:
+    docker_users:
+      - josecoelho
   roles:
     - base
     - cmprescott.chrome
