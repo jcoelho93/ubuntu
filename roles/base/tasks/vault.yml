@@ -1,0 +1,13 @@
+---
+- name: install vault
+  block:
+    - name: add gpg key
+      ansible.builtin.apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        keyring: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    - name: add repository
+      ansible.builtin.apt_repository:
+        repo: deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main
+    - name: install vault CLI
+      ansible.builtin.apt:
+        name: vault

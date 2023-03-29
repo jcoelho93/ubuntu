@@ -104,3 +104,7 @@
 - name: install vagrant
   ansible.builtin.include_tasks:
     file: vagrant.yml
+
+- name: install vault CLI
+  ansible.builtin.include_tasks:
+    file: vault.yml
