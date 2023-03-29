@@ -100,3 +100,7 @@
 - name: install minikube
   ansible.builtin.include_tasks:
     file: minikube.yml
+
+- name: install vagrant
+  ansible.builtin.include_tasks:
+    file: vagrant.yml
